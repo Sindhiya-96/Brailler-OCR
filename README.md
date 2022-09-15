@@ -1,1 +1,7 @@
 # Braille-OCR
+Braille is a writing system utilized by visually impaired people, including blind, deafblind, or with low vision. Visually impaired people can be read on embossed
+paper or refreshable braille displays connecting to computers and smartphone devices. Braille is key to literacy for the visually impaired, but globally, only <
+1 percentage of books were converted into Braille. For blind learners, some courses can feel out of reach because books and exams may not be readily available in a braille format. Furthermore, depending on the number of pages and complexity, it may take up to 20 business days to transcribe, emboss, and
+bind more essential documents. In addition to the above statement, Braille books cost more than most college textbooks. For example, converting just five chapters of a science book, the average order, into Braille can cost up to $15,000. The main aim of this project is to reduce the time taken to convert the document and make all the resources available for visually impaired people. It contains four main components: Braille to Text, Text to Braille, Handwritten to Braille, and Audiobook. The application diminishes the conversion time required to convert the text into Braille. For instance, the manual conversion takes 2 to 3 days to convert text into Braille for a small document, but the application can convert a small document in a few minutes.
+
+![image](https://user-images.githubusercontent.com/111561087/190333945-434aec1b-ea98-4ae6-860c-9ce569133294.png)
