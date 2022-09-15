@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Braille Converter</title>
+    <link rel="stylesheet" href="static\style_t.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mingzat&display=swap" rel="stylesheet">
+    <!-- CSS only -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico" >
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Mingzat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Finlandica&family=Merienda:wght@700&family=Sacramento&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Lobster+Two:ital@1&display=swap" rel="stylesheet">
+ 
+</head>
+<body>
+  <div class="nav-top">
+    <nav>
+    <a class= " nav_link" href="index.html">Home</a>
+    <a class= " nav_link" href="t2b.html">Text2braille</a>
+    <a class= " nav_link" href="b2t.html">braille2text</a>
+    <a class= " nav_link" href="handwritten.html">handwritten</a>
+    <a class= " nav_link" href="Audio.html">Audiobook</a>
+    <a class= " nav_link" href="contact.html">Contact us</a>
+    <p id="logo">Braille Converter</p>
+    </nav>
+</div>
+<h1 >Handwritten-to-Text</h1>
+    <h2 class="title-h2">Please upload your file here</h2>
+    <div class="box-form">
+ <!--------------------------------------------------------Pdf box------------------------------------------------------------------------------->     
+ <div  >
+    <img class="bg" src="image\add-image.png" alt="PDF File">
+    <button class="upload-doc" onclick="document.getElementById('file').click()">Click here to add file</button>
+    <input type='file' id="file" style="display:none" name="file">
+  <div class="label">
+    <progress id="progress" value="0" max="100"> </progress>
+    <label id="progress-label" for="progress"></label>
+    
+  </div>   
+      
+    </div>
+      
+    </div>
+      <button onclick="uploadFiles();" name="upload" class="btn1">Convert</button>
+      
+      <div id="loading">
+        <img id="loading-image" src="B://project//templates//image//Loading.gif" alt="Loading..." />
+      </div>
+      <div id="feedback">
+
+      </div>
+      <script>
+        window.onload = function(){ document.getElementById("loading").style.display = "none" }
+                  
+                    const fileUploader = document.getElementById('file');
+                          //alert('IN PROG',fileUploader)
+                    const feedback = document.getElementById('feedback');
+                    const progress = document.getElementById('progress');
+        
+                    
+        
+                    const reader = new FileReader();
+        
+                    
+        
+                    fileUploader.addEventListener('change', (event) => {
+                    const files = event.target.files;
+                    const file = files[0];
+                    reader.readAsDataURL(file);
+                      
+                    reader.addEventListener('progress', (event) => {
+                    if (event.loaded && event.total) {
+                    const percent = (event.loaded / event.total) * 100;
+                    progress.value = percent;
+                    document.getElementById('progress-label').innerHTML = Math.round(percent) + '%';
+                          
+                    if (percent === 100) {
+                    let msg = `<span style="color:#23a6d5;margin-left:535px;">File <u><b>${file.name}</b></u> has been uploaded successfully.Now click "Convert"</span>`;
+                    feedback.innerHTML = msg;
+                          }
+                        }
+                      });
+                    });
+        
+                    
+        
+        
+                    function uploadFiles() {
+                    document.getElementById("loading").style.display = "block"
+                    const formData = new FormData();
+                   
+                    const files = document.getElementById("file");
+                    
+                    if((files.files[0] == null)){
+                      alert('Please Upload the file')
+                      document.getElementById("loading").style.display = "none"
+                    }
+                    else{
+                    let requestOptions = ""
+                    let url = ""    
+                    
+                    formData.append("file", files.files[0]); 
+                    url = "http://localhost:8086/uploadHandwrittenToBraille"
+                    requestOptions = {
+                    method: "POST",
+                    files: files.files[0],
+                    body: formData,
+                        };
+                
+        
+                    fetch(url, requestOptions)
+                    .then(res=>{
+                      document.getElementById("loading").style.display = "none"
+                        if(res.ok){
+                            return res.json()
+                        }else{
+                            alert("something is wrong")
+                        }
+                    }).then(jsonResponse=>{
+                        
+                        // Log the response data in the console
+                        let loc = jsonResponse['path']
+                        let msg = `<span style="color:#23a6d5;">File has been converted successfully.
+                          Click <a href="`+loc+`" download="brailleop.doc">here</a> to download </a></span>`;
+                        feedback.innerHTML = msg;
+                        console.log(jsonResponse['path'])
+                    } 
+                    ).catch((err) => console.error(err));
+                  }
+                   }
+                  
+                    
+            </script>
+        
+
+
+      <br>
+   
+      <br>
+    
+    
+</body>
+</html>

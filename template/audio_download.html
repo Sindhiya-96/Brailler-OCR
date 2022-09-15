@@ -1,0 +1,129 @@
+<!DOCTYPE html>  
+ <html lang="en">  
+  <head>  
+   <meta charset="UTF-8" />  
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+   <link rel="stylesheet" href="static/a_style.css" />  
+   <link  
+    rel="stylesheet"  
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"  
+   />  
+   <title>Audio Player</title>  
+  </head>  
+  <body>
+    <span class="material-symbols-rounded" ><a href="Audio.html">close</a></span>  
+   <h1>Audio Player</h1>  
+   <div class="music-container" id="music-container">  
+    <div class="music-info">  
+     <h4 class="title" id="title"></h4>  
+     <div class="progress-container" id="progress-container">  
+      <div class="progress" id="progress"></div>  
+     </div>  
+    </div>  
+    <audio src="B:\project\Audiobook\output.mp3" id="audio"></audio>  
+    <div class="img-container">  
+     <img src="audio_player.png" alt="music-cover" id="cover" />  
+    </div>  
+    <div class="navigation">  
+     <button id="prev" class="action-btn">  
+      <i class="fa fa-backward" aria-hidden="true"></i>  
+     </button>  
+     <button id="play" class="action-btn action-btn-big">  
+      <i class="fa fa-play" aria-hidden="true"></i>  
+     </button>  
+     <button id="next" class="action-btn">  
+      <i class="fa fa-forward" aria-hidden="true"></i>  
+     </button>  
+    </div>  
+   </div>  
+   <script >
+    const musicContainer = document.getElementById("music-container");  
+ const playBtn = document.getElementById("play");  
+ const prevBtn = document.getElementById("prev");  
+ const nextBtn = document.getElementById("next");  
+ const audio = document.getElementById("audio");  
+ const progress = document.getElementById("progress");  
+ const progressContainer = document.getElementById("progress-container");  
+ const title = document.getElementById("title");  
+ const cover = document.getElementById("cover");  
+ // Songs Titles  
+ const songs = ["output0", "output1", "output2"];  
+ // KeepTrack of song  
+ let songIndex = 0;  
+ // Initially load song details into DOM  
+ loadSong(songs[songIndex]);  
+ // Update song details  
+ function loadSong(song) {  
+  title.innerText = song;  
+
+audio.src = `B:/project/Audiobook/${song}.mp3`;  
+
+  
+  cover.src = `B:/project/Audiobook/images/${song}.png`;  
+ }  
+ // Play Song  
+ function playSong() {  
+  musicContainer.classList.add("play");  
+  playBtn.querySelector("i.fa").classList.remove("fa-play");  
+  playBtn.querySelector("i.fa").classList.add("fa-pause");  
+  audio.play();  
+ }  
+ // Pause Song  
+ function pauseSong() {  
+  musicContainer.classList.remove("play");  
+  playBtn.querySelector("i.fa").classList.add("fa-play");  
+  playBtn.querySelector("i.fa").classList.remove("fa-pause");  
+  audio.pause();  
+ }  
+ // Previous Song  
+ function prevSong() {  
+  songIndex--;  
+  if (songIndex < 0) {  
+   songIndex = songs.length - 1;  
+  }  
+  loadSong(songs[songIndex]);  
+  playSong();  
+ }  
+ // Next Song  
+ function nextSong() {  
+  songIndex++;  
+  if (songIndex > songs.length - 1) {  
+   songIndex = 0;  
+  }  
+  loadSong(songs[songIndex]);  
+  playSong();  
+ }  
+ // Update Progress bar  
+ function updateProgress(e) {  
+  const { duration, currentTime } = e.srcElement;  
+  const progressPerCent = (currentTime / duration) * 100;  
+  progress.style.width = `${progressPerCent}%`;  
+ }  
+ // Set Progress  
+ function setProgress(e) {  
+  const width = this.clientWidth;  
+  const clickX = e.offsetX;  
+  const duration = audio.duration;  
+  audio.currentTime = (clickX / width) * duration;  
+ }  
+ // Event Listeners  
+ playBtn.addEventListener("click", () => {  
+  const isPlaying = musicContainer.classList.contains("play");  
+  if (isPlaying) {  
+   pauseSong();  
+  } else {  
+   playSong();  
+  }  
+ });  
+ // Change Song  
+ prevBtn.addEventListener("click", prevSong);  
+ nextBtn.addEventListener("click", nextSong);  
+ // Time/Song Update  
+ audio.addEventListener("timeupdate", updateProgress);  
+ // Click On progress Bar  
+ progressContainer.addEventListener("click", setProgress);  
+ // Song End  
+ audio.addEventListener("ended", nextSong);  
+   </script>  
+  </body>  
+ </html>  

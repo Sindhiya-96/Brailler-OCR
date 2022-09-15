@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Braille Converter</title>
+    <link rel="stylesheet" href="static\style_t.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mingzat&display=swap" rel="stylesheet">
+    <!-- CSS only -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico" >
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Mingzat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Finlandica&family=Merienda:wght@700&family=Sacramento&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Lobster+Two:ital@1&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Sansita&display=swap" rel="stylesheet">
+  <style>
+    
+  </style>
+ 
+  </head>
+
+<body>
+    
+    <div class="nav-top">
+        <nav>
+        <a class= " nav_link" href="index.html">Home</a>
+        <a class= " nav_link" href="t2b.html">Text2braille</a>
+        <a class= " nav_link" href="b2t.html">braille2text</a>
+        <a class= " nav_link" href="handwritten.html">handwritten</a>
+        <a class= " nav_link" href="Audio.html">Audiobook</a>
+        <a class= " nav_link" href="contact.html">Contact us</a>
+        <p id="logo">Braille Converter</p>
+        </nav>
+    </div>
+      <h1 >Text-to-Braille</h1>
+      <div class="whole-container" >
+        <div class="contain1">
+          <p class="p1">Please upload Text-based PDF file</p>
+          <button onclick= "postMyPage('pdf.html')"  class="btn"  target="iframe_a">Click here</button>
+          
+        </div>
+        
+        <div class="contain2">
+          <p class="p2">Please upload the scanned PDF file</p>
+          <button onclick= "postMyPage('scanpdf.html')"  class="btn2" target="iframe_a">Click here</button>
+
+        </div>
+        <div class="contain3">
+          <p class="p1">Please upload the Image file</p>
+          <button onclick= "postMyPage('img.html')"  class="btn3" target="iframe_a">Click here</button>
+
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+      <div class="contain4" >
+        <iframe src="" name="iframe_a" id="frame" style="width:950px ;height: 500px;" title="Iframe Example"></iframe>
+      </div>
+      </div>
+     
+      <script>
+        function postMyPage (value) {
+          var iframe = $("#frame");
+          iframe.attr("src", value); 
+      }
+      </script>
+
+<article>
+        
+  <footer>
+      <p>© 2022 Braille Converter</p>
+  </footer>
+</article>
+</body>
